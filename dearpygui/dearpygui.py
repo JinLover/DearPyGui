@@ -8819,7 +8819,7 @@ def get_selected_links(node_editor : Union[int, str], **kwargs) -> List[List[str
 	return internal_dpg.get_selected_links(node_editor, **kwargs)
 
 def get_selected_nodes(node_editor : Union[int, str], **kwargs) -> Union[List[int], Tuple[int, ...]]:
-	"""	 Returns a node editor's selected nodes.
+	""" Returns a node editor's selected nodes.
 
 	Args:
 		node_editor (Union[int, str]): 
@@ -8828,6 +8828,30 @@ def get_selected_nodes(node_editor : Union[int, str], **kwargs) -> Union[List[in
 	"""
 
 	return internal_dpg.get_selected_nodes(node_editor, **kwargs)
+
+def get_node_editor_panning(node_editor : Union[int, str], **kwargs) -> Union[List[float], Tuple[float, ...]]:
+	""" Returns a node editor's current panning position.
+
+	Args:
+		node_editor (Union[int, str]): 
+	Returns:
+		Union[List[float], Tuple[float, ...]]
+	"""
+
+	return internal_dpg.get_node_editor_panning(node_editor, **kwargs)
+
+def reset_node_editor_panning(node_editor : Union[int, str], x : float, y : float, **kwargs) -> None:
+	""" Resets a node editor's panning position to the specified coordinates.
+
+	Args:
+		node_editor (Union[int, str]): 
+		x (float): x position
+		y (float): y position
+	Returns:
+		None
+	"""
+
+	return internal_dpg.reset_node_editor_panning(node_editor, x, y, **kwargs)
 
 def get_text_size(text : str, *, wrap_width: float =-1.0, font: Union[int, str] =0, **kwargs) -> Union[List[float], Tuple[float, ...]]:
 	"""	 Returns width/height of text with specified font (must occur after 1st frame).
