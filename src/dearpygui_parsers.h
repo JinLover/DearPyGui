@@ -1568,6 +1568,33 @@ InsertParser_Block4(std::map<std::string, mvPythonParser>& parsers)
 		parsers.insert({ "clear_selected_nodes", parser });
 	}
 
+	{
+		std::vector<mvPythonDataElement> args;
+		args.push_back({ mvPyDataType::UUID, "node_editor" });
+
+		mvPythonParserSetup setup;
+		setup.about = "Returns a node editor's current panning position.";
+		setup.category = { "Node Editor", "App Item Operations" };
+		setup.returnType = mvPyDataType::FloatList;
+
+		mvPythonParser parser = FinalizeParser(setup, args);
+		parsers.insert({ "get_node_editor_panning", parser });
+	}
+
+	{
+		std::vector<mvPythonDataElement> args;
+		args.push_back({ mvPyDataType::UUID, "node_editor" });
+		args.push_back({ mvPyDataType::Float, "x", mvArgType::REQUIRED_ARG, "", "x position" });
+		args.push_back({ mvPyDataType::Float, "y", mvArgType::REQUIRED_ARG, "", "y position" });
+
+		mvPythonParserSetup setup;
+		setup.about = "Resets a node editor's panning position to the specified coordinates.";
+		setup.category = { "Node Editor", "App Item Operations" };
+
+		mvPythonParser parser = FinalizeParser(setup, args);
+		parsers.insert({ "reset_node_editor_panning", parser });
+	}
+
 	//-----------------------------------------------------------------------------
 	// fonts
 	//-----------------------------------------------------------------------------

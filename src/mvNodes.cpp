@@ -153,6 +153,19 @@ std::vector<mvUUID> mvNodeEditor::getSelectedLinks() const
     return result;
 }
 
+std::pair<float, float> mvNodeEditor::getPanning() const
+{
+    ImNodes::EditorContextSet(_context);
+    ImVec2 panning = ImNodes::EditorContextGetPanning();
+    return { panning.x, panning.y };
+}
+
+void mvNodeEditor::resetPanning(float x, float y)
+{
+    ImNodes::EditorContextSet(_context);
+    ImNodes::EditorContextResetPanning(ImVec2(x, y));
+}
+
 void mvNodeEditor::draw(ImDrawList* drawlist, float x, float y)
 {
     ScopedID id(uuid);

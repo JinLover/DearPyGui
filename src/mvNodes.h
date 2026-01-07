@@ -94,6 +94,8 @@ public:
 
     std::vector<mvUUID> getSelectedNodes() const;
     std::vector<mvUUID> getSelectedLinks() const;
+    std::pair<float, float> getPanning() const;
+    void resetPanning(float x, float y);
     void clearNodes() { _clearNodes = true; }
     void clearLinks() { _clearLinks = true; }
 
