@@ -99,6 +99,14 @@ public:
     void clearNodes() { _clearNodes = true; }
     void clearLinks() { _clearLinks = true; }
 
+    // Key mapping configuration
+    void setPanningMouseButton(int button) { _panningMouseButton = button; }
+    int getPanningMouseButton() const { return _panningMouseButton; }
+    void setPanningModifier(int modifier) { _panningModifier = modifier; }
+    int getPanningModifier() const { return _panningModifier; }
+    void setLinkDetachModifier(int modifier) { _linkDetachModifier = modifier; }
+    int getLinkDetachModifier() const { return _linkDetachModifier; }
+
 private:
 
     ImGuiWindowFlags _windowflags = ImGuiWindowFlags_NoSavedSettings;
@@ -113,5 +121,10 @@ private:
 
     bool                   _minimap = false;
     ImNodesMiniMapLocation _minimapLocation= ImNodesMiniMapLocation_TopLeft;
+
+    // Key mapping: 0=none, 1=ctrl, 2=shift, 3=alt, 4=super
+    int _panningMouseButton = 2;  // Default: middle mouse (wheel click)
+    int _panningModifier = 0;     // Default: none (use AltMouseButton)
+    int _linkDetachModifier = 1;  // Default: ctrl
 
 };

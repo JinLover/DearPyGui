@@ -191,7 +191,26 @@ void mvNodeEditor::draw(ImDrawList* drawlist, float x, float y)
     ImNodes::PushAttributeFlag(ImNodesAttributeFlags_None);
 
     ImNodesIO& io = ImNodes::GetIO();
-    io.LinkDetachWithModifierClick.Modifier = &ImGui::GetIO().KeyCtrl;
+    
+    // Apply panning configuration
+    io.AltMouseButton = _panningMouseButton;
+    
+    // Helper lambda to get modifier pointer
+    auto getModifierPtr = [](int modifier) -> const bool* {
+        switch (modifier) {
+            case 1: return &ImGui::GetIO().KeyCtrl;
+            case 2: return &ImGui::GetIO().KeyShift;
+            case 3: return &ImGui::GetIO().KeyAlt;
+            case 4: return &ImGui::GetIO().KeySuper;
+            default: return nullptr;
+        }
+    };
+    
+    // Apply panning modifier (EmulateThreeButtonMouse)
+    io.EmulateThreeButtonMouse.Modifier = getModifierPtr(_panningModifier);
+    
+    // Apply link detach modifier
+    io.LinkDetachWithModifierClick.Modifier = getModifierPtr(_linkDetachModifier);
 
     ImNodes::BeginNodeEditor();
 

@@ -1595,6 +1595,33 @@ InsertParser_Block4(std::map<std::string, mvPythonParser>& parsers)
 		parsers.insert({ "reset_node_editor_panning", parser });
 	}
 
+	{
+		std::vector<mvPythonDataElement> args;
+		args.push_back({ mvPyDataType::UUID, "node_editor" });
+		args.push_back({ mvPyDataType::Integer, "button", mvArgType::REQUIRED_ARG, "", "Mouse button: 0=left, 1=right, 2=middle" });
+		args.push_back({ mvPyDataType::Integer, "modifier", mvArgType::KEYWORD_ARG, "0", "Modifier key: 0=none, 1=ctrl, 2=shift, 3=alt, 4=super" });
+
+		mvPythonParserSetup setup;
+		setup.about = "Sets the mouse button and modifier key for panning the node editor.";
+		setup.category = { "Node Editor", "App Item Operations" };
+
+		mvPythonParser parser = FinalizeParser(setup, args);
+		parsers.insert({ "set_node_editor_panning_button", parser });
+	}
+
+	{
+		std::vector<mvPythonDataElement> args;
+		args.push_back({ mvPyDataType::UUID, "node_editor" });
+		args.push_back({ mvPyDataType::Integer, "modifier", mvArgType::REQUIRED_ARG, "", "Modifier key: 0=none, 1=ctrl, 2=shift, 3=alt, 4=super" });
+
+		mvPythonParserSetup setup;
+		setup.about = "Sets the modifier key for detaching links in the node editor.";
+		setup.category = { "Node Editor", "App Item Operations" };
+
+		mvPythonParser parser = FinalizeParser(setup, args);
+		parsers.insert({ "set_node_editor_link_detach_modifier", parser });
+	}
+
 	//-----------------------------------------------------------------------------
 	// fonts
 	//-----------------------------------------------------------------------------

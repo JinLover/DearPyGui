@@ -995,6 +995,76 @@ reset_node_editor_panning(PyObject* self, PyObject* args, PyObject* kwargs)
 }
 
 static PyObject*
+set_node_editor_panning_button(PyObject* self, PyObject* args, PyObject* kwargs)
+{
+	PyObject* node_editor_raw;
+	int button;
+	int modifier = 0;
+
+	if (!Parse((GetParsers())["set_node_editor_panning_button"], args, kwargs, __FUNCTION__, &node_editor_raw, &button, &modifier))
+		return ToPyBool(false);
+
+	mvPySafeLockGuard lk(GContext->mutex);
+
+	mvUUID node_editor = GetIDFromPyObject(node_editor_raw);
+
+	auto anode_editor = GetItem(*GContext->itemRegistry, node_editor);
+	if (anode_editor == nullptr)
+	{
+		mvThrowPythonError(mvErrorCode::mvItemNotFound, "set_node_editor_panning_button",
+			"Item not found: " + std::to_string(node_editor), nullptr);
+		return GetPyNone();
+	}
+
+	if (anode_editor->type != mvAppItemType::mvNodeEditor)
+	{
+		mvThrowPythonError(mvErrorCode::mvIncompatibleType, "set_node_editor_panning_button",
+			"Incompatible type. Expected types include: mvNodeEditor", anode_editor);
+		return GetPyNone();
+	}
+
+	mvNodeEditor* editor = static_cast<mvNodeEditor*>(anode_editor);
+	editor->setPanningMouseButton(button);
+	editor->setPanningModifier(modifier);
+
+	return GetPyNone();
+}
+
+static PyObject*
+set_node_editor_link_detach_modifier(PyObject* self, PyObject* args, PyObject* kwargs)
+{
+	PyObject* node_editor_raw;
+	int modifier;
+
+	if (!Parse((GetParsers())["set_node_editor_link_detach_modifier"], args, kwargs, __FUNCTION__, &node_editor_raw, &modifier))
+		return ToPyBool(false);
+
+	mvPySafeLockGuard lk(GContext->mutex);
+
+	mvUUID node_editor = GetIDFromPyObject(node_editor_raw);
+
+	auto anode_editor = GetItem(*GContext->itemRegistry, node_editor);
+	if (anode_editor == nullptr)
+	{
+		mvThrowPythonError(mvErrorCode::mvItemNotFound, "set_node_editor_link_detach_modifier",
+			"Item not found: " + std::to_string(node_editor), nullptr);
+		return GetPyNone();
+	}
+
+	if (anode_editor->type != mvAppItemType::mvNodeEditor)
+	{
+		mvThrowPythonError(mvErrorCode::mvIncompatibleType, "set_node_editor_link_detach_modifier",
+			"Incompatible type. Expected types include: mvNodeEditor", anode_editor);
+		return GetPyNone();
+	}
+
+	mvNodeEditor* editor = static_cast<mvNodeEditor*>(anode_editor);
+	editor->setLinkDetachModifier(modifier);
+
+	return GetPyNone();
+}
+
+static PyObject*
 get_plot_query_rects(PyObject* self, PyObject* args, PyObject* kwargs)
 {
 	PyObject* plotraw;

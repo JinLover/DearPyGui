@@ -8853,6 +8853,31 @@ def reset_node_editor_panning(node_editor : Union[int, str], x : float, y : floa
 
 	return internal_dpg.reset_node_editor_panning(node_editor, x, y, **kwargs)
 
+def set_node_editor_panning_button(node_editor : Union[int, str], button : int, modifier : int = 0, **kwargs) -> None:
+	""" Sets the mouse button and modifier key for panning the node editor.
+
+	Args:
+		node_editor (Union[int, str]): Node editor item
+		button (int): Mouse button - 0=left, 1=right, 2=middle (wheel)
+		modifier (int): Modifier key - 0=none, 1=ctrl, 2=shift, 3=alt, 4=super
+	Returns:
+		None
+	"""
+
+	return internal_dpg.set_node_editor_panning_button(node_editor, button, modifier=modifier, **kwargs)
+
+def set_node_editor_link_detach_modifier(node_editor : Union[int, str], modifier : int, **kwargs) -> None:
+	""" Sets the modifier key for detaching links in the node editor.
+
+	Args:
+		node_editor (Union[int, str]): Node editor item
+		modifier (int): Modifier key - 0=none, 1=ctrl, 2=shift, 3=alt, 4=super
+	Returns:
+		None
+	"""
+
+	return internal_dpg.set_node_editor_link_detach_modifier(node_editor, modifier, **kwargs)
+
 def get_text_size(text : str, *, wrap_width: float =-1.0, font: Union[int, str] =0, **kwargs) -> Union[List[float], Tuple[float, ...]]:
 	"""	 Returns width/height of text with specified font (must occur after 1st frame).
 
